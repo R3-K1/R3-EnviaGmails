@@ -27,10 +27,10 @@ def enviar_correo(destinatario, asunto, cuerpo, remitente, password, adjunto=Non
             part = MIMEBase('application', 'octet-stream')
             part.set_payload(attachment.read())
             encoders.encode_base64(part)
-            part.add_header('Content-Disposition', f'attachment; filename= {adjunto}')
+            part.add_header('Content-Disposition', f'attachment; filename={adjunto}')
             msg.attach(part)
         except:
-            print("La ruta de imagen no es correcta, asegurate de introducir los datos necesarios, la extension y nombre de la imagen.")
+            print("La ruta de imagen no es correcta, asegúrate de introducir los datos necesarios, la extensión y nombre de la imagen.")
             return 0
 
     with smtplib.SMTP('smtp.gmail.com', 587) as server:
@@ -40,8 +40,8 @@ def enviar_correo(destinatario, asunto, cuerpo, remitente, password, adjunto=Non
             server.sendmail(remitente, destinatario, msg.as_string())
             print("Correo electrónico enviado con éxito.\nGRACIAS POR USAR R3")
             time.sleep(2.5)
-        except Exception as e:
-            print(f"Ha surgido un error durante el envío del correo electrónico: {e}")
+        except:
+            print(f"Ha surgido un error durante el envío del correo electrónico, el correo solicitado no es correcto.")
             time.sleep(2.5)
 
 configuracion_correo = cargar_configuracion()
@@ -52,11 +52,10 @@ destinatario = input("Gmail al que quieres escribir: ")
 asunto = input("Título del gmail: ")
 cuerpo = input("Cuerpo del gmail: ")
 
-
 adjuntar_imagen = input("¿Quieres adjuntar una imagen? (si/no): ").lower()
 
 if adjuntar_imagen == 'si':
     ruta_imagen = input("Ruta de la imagen a adjuntar: ")
     enviar_correo(destinatario, asunto, cuerpo, remitente, password, adjunto=ruta_imagen)
 else:
-    enviar_correo(destinatario, asunto, cuerpo, remitente, password)
+        enviar_correo(destinatario, asunto, cuerpo, remitente, password)
