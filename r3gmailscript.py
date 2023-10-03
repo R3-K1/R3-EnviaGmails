@@ -30,7 +30,7 @@ def enviar_correo(destinatario, asunto, cuerpo, remitente, password, adjunto=Non
             part.add_header('Content-Disposition', f'attachment; filename= {adjunto}')
             msg.attach(part)
         except:
-            print("La ruta de imagen no es correcta, asegurate de introducir los datos necesarios y la extension y nombre de la imagen.")
+            print("La ruta de imagen no es correcta, asegurate de introducir los datos necesarios, la extension y nombre de la imagen.")
             return 0
 
     with smtplib.SMTP('smtp.gmail.com', 587) as server:
